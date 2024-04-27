@@ -1,9 +1,10 @@
 package com.highlight.weather.refactored.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDate;
@@ -12,28 +13,28 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
 @Service("refactoredWeatherAbstract")
 @RequiredArgsConstructor
 public abstract class WeatherAbstract {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd");
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHH");
-    private final RestClient restClient;
-
-    protected String sendGetRequest(String url, String apiKey, Map<String, String> queryParams ) {
+//    private final RestClient restClient;
+    private final WebClient webClient; // RestClient 대신 WebClient사용하여 논브로킹을 사용한다
+    @Async("weatherTaskExecutor")
+    protected CompletableFuture<String> sendGetRequest(String url, String apiKey, Map<String, String> queryParams )  {
         // 동적 URI 생성 파라미터로 전달받은 URI 정보를 바탕으로 새로운 인스턴스를 생성해서 간편하다 !!
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
         queryParams.forEach(builder::queryParam);
-        ResponseEntity<String> response;
-        // retrieve가 4xx와 5xx를 에러로 처리해준다! try-catch가 필요없으니 코드가 짧아진다 !!!
-        response = restClient.get()
-                    .uri(builder.toUriString())
-                    .header("authKey", apiKey)
-                    .retrieve()
-                    // body(String.class)를 사용하면 응답.body를 받을 수 있지만 ResponseEntity로 받아 추후에 status 별 에러
-                    // 에러 핸들링을 위해 유지
-                    .toEntity(String.class);
-        return response.getBody();
+        return webClient.get()
+                .uri(builder.toUriString())
+                .header("authKey", apiKey)
+                .retrieve()
+                .toEntity(String.class)
+                .map(HttpEntity::getBody) // ResponseEntity에서 body 추출
+                .toFuture(); // CompletableFuture로 변환
     }
 
     private int formatDate(LocalDateTime dateTime) {

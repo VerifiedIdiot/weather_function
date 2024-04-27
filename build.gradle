@@ -43,9 +43,9 @@ dependencies {
 
 	// PostConstruct
 	implementation 'javax.annotation:javax.annotation-api:1.3.2'
-	// WebFlux for RestClient
+	// WebFlux for RestClient and WebFlux
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'io.projectreactor:reactor-core:3.4.10'
+
 
 
 

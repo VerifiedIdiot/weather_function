@@ -2,12 +2,12 @@ package com.highlight.weather.refactored.service;
 
 import com.highlight.weather.refactored.enumClass.CityEnum;
 import com.highlight.weather.refactored.enumClass.RegionEnum;
-import com.highlight.weather.refactored.service.EnumMapperService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,14 +25,15 @@ public class MiddleWeatherService extends WeatherAbstract {
     @Value("${api.weatherApi.key}")
     private String weatherApiKey;
 
-    public MiddleWeatherService(RestClient restClient) {
-        super(restClient);
+    public MiddleWeatherService(WebClient webClient) {
+        super(webClient);
     }
 
     public Map<String, String> getLocationCode() {
         try {
             System.out.println("지역코드 가져오기 시작");
-            String response = sendGetRequest(weatherLocationUrl, weatherApiKey, Collections.emptyMap());
+            CompletableFuture<String> futureResponse = sendGetRequest(weatherLocationUrl, weatherApiKey, Collections.emptyMap());
+            String response = futureResponse.join();
 
             Map<String, String> locationCode = new HashMap<>();
             String[] lines = response.split("\n");
@@ -75,8 +76,8 @@ public class MiddleWeatherService extends WeatherAbstract {
 //                System.out.println(cityName + " : " + regCode);
 
                 Map<String, String> queryParams = middleQueryParams(regCode, dateParams);
-                String response = sendGetRequest(temperature7daysUrl, weatherApiKey, queryParams);
-
+                CompletableFuture<String> futureResponse = sendGetRequest(temperature7daysUrl, weatherApiKey, queryParams);
+                String response = futureResponse.join(); // 또는 futureResponse.get();
                 String[] lines = response.split("\n");
                 String[] filterLines = Arrays.copyOfRange(lines, 2, lines.length - 1);
 
@@ -123,8 +124,8 @@ public class MiddleWeatherService extends WeatherAbstract {
 
                 Map<String, String> queryParams = middleQueryParams(regCode, dateParams);
 
-                String response = sendGetRequest(condition7daysUrl, weatherApiKey, queryParams );
-
+                CompletableFuture<String> futureResponse = sendGetRequest(condition7daysUrl, weatherApiKey, queryParams );
+                String response = futureResponse.join(); // 또는 futureResponse.get();
                 String[] lines = response.split("\n");
 
 

@@ -3,12 +3,13 @@ package com.highlight.weather.refactored.service;
 import com.highlight.weather.refactored.enumClass.CityEnum;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
+import org.springframework.web.reactive.function.client.WebClient;
 
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 @Service("refactoredShortWeatherService")
@@ -22,16 +23,20 @@ public class ShortWeatherService extends WeatherAbstract {
     @Value("${api.weatherShortDays.url}")
     private String weatherShortDays;
     // 추상클래스에서 직접 주입하는것보다는 생성자를 통해 주입하여 의존성 관리를 스프링이 하게하자
-    public ShortWeatherService(RestClient restClient) {
-        super(restClient);
-    }
 
+    public WebClient webClient;
+
+    public ShortWeatherService(WebClient webClient) {
+        super(webClient);
+    }
 
     public Map<String, String> getLocationCode() {
         try {
             System.out.println("지역코드 가져오기 시작");
 
-            String response = sendGetRequest(weatherLocationUrl, weatherApiKey, Collections.emptyMap());
+            CompletableFuture<String> futureResponse = sendGetRequest(weatherLocationUrl, weatherApiKey, Collections.emptyMap());
+            String response = futureResponse.join(); // 또는 futureResponse.get();
+
 
             Map<String, String> locationCode = new HashMap<>();
             String[] lines = response.split("\n");
@@ -81,7 +86,8 @@ public class ShortWeatherService extends WeatherAbstract {
 
 
                 Map<String, String> queryParams = shortQueryParams(regCode, shortDateParams);
-                String response = sendGetRequest(weatherShortDays, weatherApiKey, queryParams);
+                CompletableFuture<String> futureResponse = sendGetRequest(weatherShortDays, weatherApiKey, queryParams);
+                String response = futureResponse.join(); // 또는 futureResponse.get();
                 String[] lines = response.split("\n");
                 List<String> filteredLines = new ArrayList<>();
 
