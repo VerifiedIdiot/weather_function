@@ -27,5 +27,5 @@ MySQL 서버의 계정과 비밀번호, 기상청API허브(https://apihub.kma.go
 ## 개선 사항
 - Swagger 2.0에서 springdoc-openapi로의 업그레이드로 OpenAPI Specification 3.0 및 Spring 통합을 개선하여 API 문서 생성 및 관리를 향상 
 - 스프링부트 3.x.x 부터 더이성 지원지 중단된 RestTemplate 대신 RestClient사용 및 코드간소화 -> 비교적 저수준의 방식인 HttpClient로 변경하여 api요청 응답시간을 개선
-- 반복된 외부 API호출로 인한 지연시간을 Async를 통해 비동기 처리
+- 로직이 실행되는동안 API 응답 지연으로 인해 대부분의 시간이 할애됨, 그래서 비동기 요청처리를 통해 쓰레드를 조절하여 시간을 단축
 - 데이터 insert 시 flush & clear 사용 대신 saveAll로 일괄처리
