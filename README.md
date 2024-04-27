@@ -15,7 +15,7 @@
 ## application.properties 설정
 ![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/03e4ce5e-535d-48ff-85d0-8536f8541035)
 
-MySQL 서버의 계정과 비밀번호, 기상청API허브(https://apihub.kma.go.kr/)에서 API키 발
+MySQL 서버의 계정과 비밀번호, 기상청API허브(https://apihub.kma.go.kr/)에서 API키 발급
 
  
 ## 변경 사항
