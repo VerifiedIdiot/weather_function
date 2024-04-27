@@ -12,16 +12,15 @@
 ## 스웨거 주소
 - Swagger: (http://localhost:8080/swagger-ui/index.html#)
 
-## 프로젝트 구조
- - 프로젝트 구조는 과거 사이드프로젝트에서 모듈화만 진행한 legacy, 마이그레이션과 리팩토링이 진행된 refactored로 구분이된다.
-![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/f11adb04-4c73-4b7f-8a57-49882924dd71)
-
+## 사전 준비 사항 
+- MySQL서버 설정, API KEY 발급(https://apihub.kma.go.kr/) 
 
 ## application.properties 설정
 ![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/03e4ce5e-535d-48ff-85d0-8536f8541035)
 
-MySQL 서버의 계정과 비밀번호, 기상청API허브(https://apihub.kma.go.kr/)에서 API키 발급
-
+## 프로젝트 구조
+ - 프로젝트 구조는 과거 사이드프로젝트에서 모듈화만 진행한 legacy, 마이그레이션과 리팩토링이 진행된 refactored로 구분이된다.
+![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/f11adb04-4c73-4b7f-8a57-49882924dd71)
  
 ## 변경 사항
 - Java 11 -> Java 17
@@ -38,6 +37,9 @@ MySQL 서버의 계정과 비밀번호, 기상청API허브(https://apihub.kma.go
 ## 결과 
 - RestTemplate을 통해 동기적으로 작동하던 API요청을 WebClient의 비동기적인 방식을 통해 다음과 같이 작업시간이 단축되었다.
 Legacy코드 : Duration: 256 seconds -> Refactored코드 : Duration: 146 seconds
+
+## 마치며
+공공기관 API라 신뢰도 이슈가 존재한다. 동일 로직을 개발시에 해외 유료 API를 사용하는게 좋을것같다.
 
 
 
