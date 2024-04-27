@@ -30,7 +30,7 @@
 
 ## 개선 사항
 - Swagger 2.0에서 springdoc-openapi로의 업그레이드로 OpenAPI Specification 3.0 및 Spring 통합을 개선하여 API 문서 생성 및 관리를 향상 
-- 스프링부트 3.x.x 부터 더이성 지원지 중단된 RestTemplate 대신 RestClient사용 및 코드간소화 -> 비동기방식으로 쓰레드 갯수를 조절하여 WebClient로 대체
+- 스프링부트 3.x.x 부터 더이성 지원지 중단된 RestTemplate 대신 RestClient사용 및 코드간소화 -> 비동기방식인 WebClient로 대체
 - 로직이 실행되는동안 API 응답 지연으로 인해 대부분의 시간이 할애됨, 그래서 비동기 요청처리를 통해 쓰레드를 조절하여 시간을 단축
 - 데이터 insert 시 flush & clear 사용 대신 saveAll로 일괄처리
 
