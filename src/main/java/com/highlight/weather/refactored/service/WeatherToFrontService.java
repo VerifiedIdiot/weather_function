@@ -3,6 +3,7 @@ package com.highlight.weather.refactored.service;
 import com.highlight.weather.refactored.dto.WeatherDto;
 import com.highlight.weather.refactored.entity.Weather;
 import com.highlight.weather.refactored.repository.WeatherRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class WeatherToFrontService {
 
     private WeatherRepository weatherRepository;
-
+    @Cacheable("weather")
     public Map<String, List<WeatherDto>> getWeatherData() {
         List<Weather> weatherList = weatherRepository.findAll();
         Map<String, List<WeatherDto>> weatherDataMap = new HashMap<>();

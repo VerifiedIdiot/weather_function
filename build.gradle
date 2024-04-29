@@ -45,6 +45,8 @@ dependencies {
 	implementation 'javax.annotation:javax.annotation-api:1.3.2'
 	// WebFlux for RestClient and WebFlux
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	// SpringBoot Cache
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
 
 
 

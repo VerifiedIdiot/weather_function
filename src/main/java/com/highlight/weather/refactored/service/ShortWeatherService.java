@@ -32,6 +32,7 @@ public class ShortWeatherService extends WeatherAbstract {
 
     public Map<String, String> getLocationCode() {
         try {
+
             System.out.println("지역코드 가져오기 시작");
 
             CompletableFuture<String> futureResponse = sendGetRequest(weatherLocationUrl, weatherApiKey, Collections.emptyMap());

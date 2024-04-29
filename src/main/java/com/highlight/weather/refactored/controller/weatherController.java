@@ -33,6 +33,7 @@ public class weatherController {
     private final WeatherDataSaveService weatherDataSaveService;
     private final WeatherToFrontService weatherToFrontService;
 
+
 //    @GetMapping("/get-by-client")
 //    @Operation(summary = "RestClient 확인용", description = "RestTemplate 대신 RestClient를 사용하여 API를 사용해봅니다")
 //    public ResponseEntity<?> getByRestClient () {
@@ -99,4 +100,5 @@ public class weatherController {
         Map<String, List<WeatherDto>> weeklyWeather = weatherToFrontService.getWeatherData();
         return ResponseEntity.ok(weeklyWeather);
     }
+
 }

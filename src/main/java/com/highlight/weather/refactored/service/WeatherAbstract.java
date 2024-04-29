@@ -23,6 +23,9 @@ public abstract class WeatherAbstract {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHH");
 //    private final RestClient restClient;
     private final WebClient webClient; // RestClient 대신 WebClient사용하여 논브로킹을 사용한다
+
+
+
     @Async("weatherTaskExecutor")
     protected CompletableFuture<String> sendGetRequest(String url, String apiKey, Map<String, String> queryParams )  {
         // 동적 URI 생성 파라미터로 전달받은 URI 정보를 바탕으로 새로운 인스턴스를 생성해서 간편하다 !!
