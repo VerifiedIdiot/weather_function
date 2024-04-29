@@ -27,19 +27,26 @@
 - Spring Boot 2.5.5 -> Spring Boot 3.2.5
 - RestTemplate -> RestClient -> WebClient
 - springfox-swagger2:2.9.2 -> springdoc-openapi-starter-webmvc-ui:2.0.2
+- Async방식의 API 요청
+- 캐싱추가
 
 ## 개선 사항
 - Swagger 2.0에서 springdoc-openapi로의 업그레이드로 OpenAPI Specification 3.0 및 Spring 통합을 개선하여 API 문서 생성 및 관리를 향상 
 - 스프링부트 3.x.x 부터 더이성 지원지 중단된 RestTemplate 대신 RestClient사용 및 코드간소화 -> 비동기방식인 WebClient로 대체
-- 로직이 실행되는동안 API 응답 지연으로 인해 대부분의 시간이 할애됨, 그래서 비동기 요청처리를 통해 쓰레드를 조절하여 시간을 단축
+- 로직이 실행되는동안 API 응답 지연으로 인해 대부분의 시간이 할애됨, 그래서 비동기 요청처리 @Async를 통해 쓰레드를 조절하여 시간을 단축
 - 데이터 insert 시 flush & clear 사용 대신 saveAll로 일괄처리
+- 일주일 날씨정보를 프론트에서 요청시에 여전히 동일한 날씨정보인 경우 캐싱을 통해 반복된 DB조회 방지
 
 ## 결과 
 - RestTemplate을 통해 동기적으로 작동하던 API요청을 WebClient의 비동기적인 방식을 통해 다음과 같이 작업시간이 단축되었다.
 Legacy코드 : Duration: 256 seconds -> Refactored코드 : Duration: 146 seconds
 
-## 마치며
-공공기관 API라 신뢰도 이슈가 존재한다. 동일 로직을 개발시에 해외 유료 API를 사용하는게 좋을것같다.
+## 마무리
+ - 캐싱 대신 Redis를 사용하려하였으나, 키-값 처리에 특화되어있고 보통 키-값의 구조로 대표되는 세션이나 API 쿼리파라미터 변수에 사용됨, 억지로 우겨넣는것은 주객전도였다
+ - 결국에 외부 API 서버의 퀄리티가 좋지않아 같은 로직일 지라도 처리되는 시간이 많게는 10배 이상 차이난다, 명세서가 공공기관API를 사용하라고 명시되지않는이상 신뢰도가 높은 해외 유료API를 사용하자
+ - 비교적 저수준인 JDBC, HttpClient를 사용하였으면 어땠을까??
+ - 생산성과 유지보수가 감당이되면 경량 프레임워크를 더 가동시켜도 좋을것같다.
+
 
 
 
