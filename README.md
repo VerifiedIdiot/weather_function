@@ -38,8 +38,13 @@
 - 일주일 날씨정보를 프론트에서 요청시에 여전히 동일한 날씨정보인 경우 캐싱을 통해 반복된 DB조회 방지
 
 ## 결과 
-- RestTemplate을 통해 동기적으로 작동하던 API요청을 WebClient의 비동기적인 방식을 통해 다음과 같이 작업시간이 단축되었다.
-Legacy코드 : Duration: 256 seconds -> Refactored코드 : Duration: 146 seconds
+# 변경전 
+일주일 날씨정보를 얻기위해 api응답이 소요된시간은 다음과 같다
+![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/ea2ac179-b2f3-48ef-a345-d0da769c2b82)
+
+# 변경후 
+일주일 날씨정보를 얻기위해 api응답이 소요된시간은 다음과 같다
+![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/a271c35f-eeb1-47d8-87c3-d56017cf0ee8)
 
 ## 마무리
  - 캐싱 대신 Redis를 사용하려하였으나, 키-값 처리에 특화되어있고 보통 키-값의 구조로 대표되는 세션이나 API 쿼리파라미터 변수에 사용됨, 억지로 우겨넣는것은 주객전도였다
