@@ -24,8 +24,14 @@ public class WeatherDataSaveService {
     private WeatherRepository weatherRepository;
     public WeatherDataSaveService() {
     }
-    public void deleteAllWeatherData() {
-        weatherRepository.deleteAll();
+    private void deleteAllWeatherData() {
+        long count = weatherRepository.count();
+        if (count > 0) {
+            weatherRepository.deleteAll();
+            logger.info("모든 날씨 데이터가 성공적으로 삭제되었습니다.");
+        } else {
+            logger.info("삭제할 날씨 데이터가 없습니다.");
+        }
     }
 
     @Transactional
@@ -49,13 +55,13 @@ public class WeatherDataSaveService {
 
                     Weather weather = weatherDto.toEntity();
                     weathers.add(weather);
-                } catch (NumberFormatException ex) {
-                        logger.error("Error parsing weather data: " + ex.getMessage(), ex);
+                } catch (Exception e) {
+                        logger.error("Error parsing weather data: " + e.getMessage(), e);
                     // 로그를 남기고, 오류 데이터는 스킵하거나 추가 조치를 취할 수 있음
                     }
                 }
             }
-            weatherRepository.deleteAll();
+            deleteAllWeatherData();
             weatherRepository.saveAll(weathers);
 
             logger.info("Weather data saved successfully");

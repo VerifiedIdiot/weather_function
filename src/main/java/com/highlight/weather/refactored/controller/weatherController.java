@@ -76,7 +76,7 @@ public class weatherController {
 
 //             단기예보 + 중기예보
             Map<String, List<List<String>>> completeWeather = completeWeatherService.getCompleteWeather(completeShort, completeMiddle);
-            weatherDataSaveService.deleteAllWeatherData();
+
             // 각 도시별 일주일 날씨 정보 db에 insert
             weatherDataSaveService.saveWeatherData(completeWeather);
 
