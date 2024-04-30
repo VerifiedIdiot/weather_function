@@ -38,6 +38,7 @@
 - 일주일 날씨정보를 프론트에서 요청시에 여전히 동일한 날씨정보인 경우 캐싱을 통해 반복된 DB조회 방지
 
 # 결과 
+
 # 변경전 
 일주일 날씨정보를 얻기위해 동기적으로 처리한경우 api응답이 소요된시간은 다음과 같다
 ![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/ea2ac179-b2f3-48ef-a345-d0da769c2b82)
