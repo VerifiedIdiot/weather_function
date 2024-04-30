@@ -37,20 +37,27 @@
 - 데이터 insert 시 flush & clear 사용 대신 saveAll로 일괄처리
 - 일주일 날씨정보를 프론트에서 요청시에 여전히 동일한 날씨정보인 경우 캐싱을 통해 반복된 DB조회 방지
 
-## 결과 
+# 결과 
 # 변경전 
-일주일 날씨정보를 얻기위해 api응답이 소요된시간은 다음과 같다
+일주일 날씨정보를 얻기위해 동기적으로 처리한경우 api응답이 소요된시간은 다음과 같다
 ![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/ea2ac179-b2f3-48ef-a345-d0da769c2b82)
+</br>
+DB에서 일주일에 해당하는 날씨정보를 프론트에서 응답받는데 소요된 시간은 다음과 같다
+![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/0d930346-32c6-4bfa-aa57-e0fe347f13d3)
+
 
 # 변경후 
-일주일 날씨정보를 얻기위해 api응답이 소요된시간은 다음과 같다
+일주일 날씨정보를 얻기위해 비동기적으로 처리한경우 api응답이 소요된시간은 다음과 같다
 ![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/a271c35f-eeb1-47d8-87c3-d56017cf0ee8)
+</br>
+서버에서 미리 캐싱된 일주일에 해당하는 날씨정보를 프론트에서 응답받는데 소요된 시간은 다음과 같다
+![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/5952ca20-322c-4c3f-a830-a219739cb8ea)
 
 ## 마무리
  - 캐싱 대신 Redis를 사용하려하였으나, 키-값 처리에 특화되어있고 보통 키-값의 구조로 대표되는 세션이나 API 쿼리파라미터 변수에 사용됨, 억지로 우겨넣는것은 주객전도였다
  - 결국에 외부 API 서버의 퀄리티가 좋지않아 같은 로직일 지라도 처리되는 시간이 많게는 10배 이상 차이난다, 명세서에 공공기관API를 사용하라고 명시되지않는이상 신뢰도가 높은 해외 유료API를 사용하자
  - 비교적 저수준인 JDBC, HttpClient를 사용하였으면 어땠을까??
- - 생산성과 유지보수가 감당이되면 경량 프레임워크를 더 가동시켜도 좋을것같다.
+ - 모듈화가 성공적으로 끝났으니 도커의 컨테이너에 등록하면 어떨까??
 
 
 
