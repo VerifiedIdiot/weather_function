@@ -55,7 +55,7 @@
 ![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/a409c84f-210a-4adc-9ede-1878f56059b9)
 
 ## 성능변화
- **기상청 API 송수신에 소요된 시간은 약 28.7% 감소함**
+ **기상청 API 송수신에 소요된 시간은 약 28.7% 감소함** </br>
  **날씨 정보를 VIEW로 응답하는데 소요된 시간은 58.44% 감소함**
 
 
