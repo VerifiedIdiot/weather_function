@@ -40,24 +40,24 @@
 # 결과 
 
 # 변경전 
-일주일 날씨정보를 얻기위해 동기적으로 처리한경우 api응답이 소요된시간은 다음과 같다
-![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/ea2ac179-b2f3-48ef-a345-d0da769c2b82)
+**일주일 날씨정보를 얻기위해 동기적으로 처리한경우 api응답이 소요된시간은 다음과 같다**
+![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/ea2ac179-b2f3-48ef-a345-d0da769c2b82){: width="100px" height="100px"}
 </br>
-DB에서 일주일에 해당하는 날씨정보를 프론트에서 응답받는데 소요된 시간은 다음과 같다
-![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/b11f6880-c76d-40b8-8bc9-ac7479dc3a46)
+**DB에서 일주일에 해당하는 날씨정보를 프론트에서 응답받는데 소요된 시간은 다음과 같다**
+![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/b11f6880-c76d-40b8-8bc9-ac7479dc3a46){: width="100px" height="100px"}
 
 
 
-# 변경후 
-일주일 날씨정보를 얻기위해 비동기적으로 처리한경우 api응답이 소요된시간은 다음과 같다
-![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/a271c35f-eeb1-47d8-87c3-d56017cf0ee8)
+## 변경후 
+**일주일 날씨정보를 얻기위해 비동기적으로 처리한경우 api응답이 소요된시간은 다음과 같다**
+![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/a271c35f-eeb1-47d8-87c3-d56017cf0ee8){: width="100px" height="100px"}
 </br>
-서버에서 미리 캐싱된 일주일에 해당하는 날씨정보를 프론트에서 응답받는데 소요된 시간은 다음과 같다
-![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/a409c84f-210a-4adc-9ede-1878f56059b9)
+**서버에서 미리 캐싱된 일주일에 해당하는 날씨정보를 프론트에서 응답받는데 소요된 시간은 다음과 같다**
+![image](https://github.com/VerifiedIdiot/weather_function/assets/107241795/a409c84f-210a-4adc-9ede-1878f56059b9){: width="100px" height="100px"}
 
-### 성능변화
-## 기상청 API 송수신에 소요된 시간은 약 28.7% 감소함
-## 날씨 정보를 VIEW로 응답하는데 소요된 시간은 58.44% 감소함
+## 성능변화
+ **기상청 API 송수신에 소요된 시간은 약 28.7% 감소함**
+ **날씨 정보를 VIEW로 응답하는데 소요된 시간은 58.44% 감소함**
 
 
 
